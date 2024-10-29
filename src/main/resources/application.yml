@@ -22,7 +22,7 @@ spring:
 #          filters:
 #            - AuthenticationFilter
         - id: booksecurity
-          uri: http://booksecurity-container:7074
+          uri: http://booksecurity-container:7073
           predicates:
             - Path=/api/auth/**
 server:
