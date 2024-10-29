@@ -1,0 +1,44 @@
+spring:
+  main:
+    web-application-type: REACTIVE
+  application:
+    name: bookgateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: bookdetails
+          uri: http://localhost:7072
+          predicates:
+            - Path=/api/book/**
+          filters:
+            - AuthenticationFilter
+        - id: authordetails
+          uri: http://localhost:7071
+          predicates:
+            - Path=/api/author/**
+          filters:
+            - AuthenticationFilter
+        - id: booksecurity
+          uri: http://localhost:7074
+          predicates:
+            - Path=/api/auth/**
+server:
+  port: 7777
+
+# Eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# Zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+
+
